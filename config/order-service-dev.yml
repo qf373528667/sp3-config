@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: order-service
+    
+#server:
+#  port: 8201    
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka1:2001/eureka,http://eureka2:2002/eureka
+
+feign:
+  hystrix:
+    enabled: true
+
+#ribbon:
+#  ConnectTimeout: 1000
+#  ReadTimeout: 1000
+#  MaxAutoRetriesNextServer: 2
+#  MaxAutoRetries: 1    
+#  
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 6000     #500           #8000
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream    
+
+---
+spring:
+  profiles: order1
+server:
+  port: 8201        
+---
+spring:
+  profiles: order2
+server:
+  port: 8202        
